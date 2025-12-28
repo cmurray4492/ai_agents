@@ -1,0 +1,48 @@
+import os
+import requests
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPEN_AI_KEY = os.getenv("OPEN_AI_KEY")
+
+
+def generate_X_post(topic: str) -> str:
+    prompt = f"""
+    You are an expert socail media manager and you excel at crafting viral and
+    highly engaging posts for X (formerly Twitter).
+
+    Your task is to generate a post that is concise, impactful and tailored to
+    the topic provided by the user. Avoid using hashtags and emojis (a few
+    emojis are ok but not too many).
+
+    Keep the post short and focused, structure in a clean readable way using
+    line breaks and empty lines to enhance readbility.
+
+    Here is ther topic provided by user for which you need to generate a post:
+    <topic>
+    {topic}
+    </topic>
+    """
+    payload = {"model": "gpt-4o", "input": prompt}
+    response = requests.post("https://api.openai.com/v1/responses",
+                             json=payload,
+                             headers={
+                                 "Content-Type": "application/json",
+                                 "Authorization": f"Bearer {OPEN_AI_KEY}",
+                             },)
+    response_text = (response.json().get("output", [{}])[0].get("content", [{}])[0].get("text", ""))
+
+    return response_text
+
+
+def main():
+    usr_input = input("What should the post be about? ")
+    x_post = generate_X_post(usr_input)
+    print("Generated X post: ")
+    print(x_post)
+
+
+if __name__ == "__main__":
+    main()
