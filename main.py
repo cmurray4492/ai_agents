@@ -23,8 +23,7 @@ def generate_X_post(topic: str) -> str:
     {topic}
     </topic>
     """
-    response = client.responses.create(model="gpt-4o", input=prompt
-    )
+    response = client.responses.create(model="gpt-4o", input=prompt)
 
     return response.output_text
 

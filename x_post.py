@@ -32,7 +32,8 @@ def generate_X_post(topic: str) -> str:
                                  "Content-Type": "application/json",
                                  "Authorization": f"Bearer {OPENAI_API_KEY}",
                              },)
-    response_text = (response.json().get("output", [{}])[0].get("content", [{}])[0].get("text", ""))
+    response_text = (response.json().get("output", [{}])[0].get
+                     ("content", [{}])[0].get("text", ""))
 
     return response_text
 
