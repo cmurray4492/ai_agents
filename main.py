@@ -22,8 +22,32 @@ def generate_X_post(topic: str) -> str:
     <topic>
     {topic}
     </topic>
+
+    Here are some examples of topics and generated posts"
+    <examples>
+        <example-1>
+            <topic>
+            </topic>
+
+            <generated-post>
+            </generated-post>
+        </example-1>
+        <example-2>
+            <topic>
+            </topic>
+
+            <generated-post>
+            </generated-post>
+         </example-2>
+    </examples>
+    Please use the tone, language, structure, and style of the examples
+    provided above to generate a post that is engaging and relevant.
+    Don't use the content fromw the examples!
     """
-    response = client.responses.create(model="gpt-4o", input=prompt)
+    response = client.responses.create(
+        model="gpt-4o",
+        input=prompt
+        )
 
     return response.output_text
 
